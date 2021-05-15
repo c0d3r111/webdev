@@ -1,3 +1,4 @@
+
 !function () {
     window.composer = window.composer || Object.create(null);
     window.create = window.create || Object.create(null);
@@ -299,7 +300,3 @@
                 .text(create.csssheet(style, '#' + parent.element.id)));
     };
 }();
-
-
-
-
