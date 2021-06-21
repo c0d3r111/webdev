@@ -1,8 +1,8 @@
 {
     "name": "OnlyPass - Password Manager",  
     "short_name": "OnlyPass", 
-    "start_url": "https://dev.jsapps.cyou/onlypass/",
-    "scope": "https://dev.jsapps.cyou/onlypass/",
+    "start_url": "https://jsapps.cyou/onlypass/",
+    "scope": "https://jsapps.cyou/onlypass/",
     "display": "fullscreen",
     "theme_color": "#161f27",
     "background_color": "#161f27",
