@@ -9,8 +9,8 @@ const cacheUrls = [
     "/onlypass/css/onlypass.style.css",
     "/onlypass/js/cryptojs.js",
     "/onlypass/js/composer.js",
-    "/onlypass/js/app.js",
-    "/onlypass/js/app.worker.js"
+    "/onlypass/app.js",
+    "/onlypass/app.worker.js"
 ];
 const cachePut  = (request, response) => caches
     .open(cacheName)
