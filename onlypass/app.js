@@ -137,8 +137,8 @@ const Utils       = {
                 path         +
                 age          +
                 data.expires + close + site
-                site         +
-                secure
+                //site         +
+                //secure
             ));
         },
     },
