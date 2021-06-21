@@ -6,7 +6,7 @@ const cacheUrls = [
     "/onlypass/css/minireset.min.css",
     "/onlypass/css/water.min.css",
     "/onlypass/css/onlypass.theme.css" ,
-    "/onlypass/css/onlypass.style.jscss",
+    "/onlypass/css/onlypass.style.css",
     "/onlypass/js/cryptojs.js",
     "/onlypass/js/composer.js",
     "/onlypass/js/app.js",
