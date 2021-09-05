@@ -486,7 +486,7 @@ const Control     = {
             void Control.show.option(Names.optionadd)();
         },
         create()   {
-            void Modules.loader();
+            void Control.util.message('Generating password...');
 
             let onlyLetterNums  = State.focus.type === 2;
             let onlyLetters     = State.focus.type === 1;
@@ -533,8 +533,8 @@ const Control     = {
                 void (specialPwd += pool[++cursor]);
             }
             
-            void select(Names.loader).remove();
-            
+            void Control.util.message('Password Generated!');
+
             return specialPwd;
         },
         generate() {
