@@ -483,7 +483,7 @@ const Control     = {
             void entry.value();
             void pwd.value();
             void node.text('Save Entry').attr({disabled: false});
-            void Control.show.option(Names.optionadd);
+            void Control.show.option(Names.optionadd)();
         },
         create()   {
             void Modules.loader();
@@ -548,8 +548,10 @@ const Control     = {
     
             State.focus.type = Number(type);
             State.focus.size = Number(size);
-        
-            return void node.value(Control.password.create());
+            
+            return void node
+                .declass('copied')
+                .value(Control.password.create());
         },
     },
     state    : {
