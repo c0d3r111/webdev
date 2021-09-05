@@ -927,7 +927,7 @@ void Root.add(Modules.authorize(!Boolean(State.sessionData)));
 void window.addEventListener('pointerdown', Control.util.fullScreen);
 void Control.util.message(
     'Disable network connection when using this app for increased security. ' +
-    'This app show never connect to external websites ' +
+    'This app should never connect to external websites ' +
     'or transfer any data after initial page load.',
     1e4
 );
