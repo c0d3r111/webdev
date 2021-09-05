@@ -762,7 +762,7 @@ const Control     = {
         message(text, time)       {
             return void Root.add(
                 Components.message(text)
-                    .style({right: '-75%'}, (Control.messageTime - 600))
+                    .style({right: '-75%'}, ((time || Control.messageTime) - 600))
                     .remove(time || Control.messageTime));
         },
         scrollTop()               {
