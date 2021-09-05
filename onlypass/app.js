@@ -136,9 +136,9 @@ const Utils       = {
                 data.value   + close +
                 path         +
                 age          +
-                data.expires + close + site
-                //site         +
-                //secure
+                data.expires + close +
+                site         +
+                secure
             ));
         },
     },
@@ -296,7 +296,7 @@ const Components  = {
                 'Import ledger from a previous session. Ledger must match your current session data.'
             ];
             
-            return root.add(create.div.id(rid).names('overlay').add([
+            return Root.add(create.div.id(rid).names('overlay').add([
                 create.div.names('modal')
                     .add(create.h2.text(isImport ? 'Import Ledger' : 'Export Ledger'))
                     .add(create.p.text(isImport ? text[1] : text[0]))
@@ -316,12 +316,12 @@ const Components  = {
                     .value(value[1])
                     .text(value[0]))));
 
-            return root.add(create.div.id(rid).names('overlay').add([
+            return Root.add(create.div.id(rid).names('overlay').add([
                 create.div.names('modal')
                     .add(State.ledger[State.focus.hash].c ? null : selections)
                     .add(create.input
                         .id(Names.pvalue)
-                        .attr({type: 'text', readonly: 1, placeholder: 'Generated Password'}))
+                        .attr({type: 'text', readonly: 1, placeholder: 'Generated Password...'}))
                     .add([
                         create.div.add([
                             create.button.text('Copy').click(Control.util.copy(Names.pvalue)),
@@ -395,11 +395,24 @@ const Modules     = {
                     create.input.id(Names.ephrase).attr({type: 'text', placeholder: 'Your secret text'}),
                 ]).hide(unlock),
                 create.p.text(this.copy.auth.pin),
-                create.input.id(Names.epin).attr({type: 'text', placeholder: 'Your pin', pattern: "[0-9]"}),
+                create.input.id(Names.epin).attr({type: 'text', placeholder: 'Your pin', pattern: "[0-9]", value: ''}),
                 create.button.text('Unlock').id(Names.ebutton).click(Control.state[unlock ? 'unlock' : 'restore']),
             ]),
             Components.footer()
         ]);
+    },
+    loader    () {
+        return Body.add([
+            create.div.names('loading').id(Names.loader).add([
+                create.div.names('loader').add([
+                    create.div,
+                    create.div,
+                    create.div,
+                    create.div,
+                ]),
+                create.span.text('Generating Password...')
+            ])
+        ])
     },
     manager()         {
         return create.main.add([
@@ -469,9 +482,12 @@ const Control     = {
             void node.text('Entry Saved!');
             void entry.value();
             void pwd.value();
-            void setTimeout(() => void node.text('Save Entry').attr({disabled: false}), 2e3);
+            void node.text('Save Entry').attr({disabled: false});
+            void Control.show.option(Names.optionadd);
         },
         create()   {
+            void Modules.loader();
+
             let onlyLetterNums  = State.focus.type === 2;
             let onlyLetters     = State.focus.type === 1;
             let size            = Number(State.focus.size);
@@ -516,7 +532,9 @@ const Control     = {
     
                 void (specialPwd += pool[++cursor]);
             }
-    
+            
+            void select(Names.loader).remove();
+            
             return specialPwd;
         },
         generate() {
@@ -577,7 +595,7 @@ const Control     = {
             }
     
             void Object.assign(State, data);
-            void root.clear().add(Modules.manager());
+            void Root.clear().add(Modules.manager());
             void Control.util.getLedger();
             void Control.util.getSpecials(epin.element.value.length);
     
@@ -625,7 +643,7 @@ const Control     = {
     
             void localStorage.setItem(Control.sessionKey, Utils.crypto.encrypt(sessionData, sessionKey));
             void Utils.cookie.set({name: Control.cookieKey, value: session, expires: Control.sessionTime});
-            void root.clear().add(Modules.manager());
+            void Root.clear().add(Modules.manager());
             void Control.util.getLedger();
             void Control.util.getSpecials(epin.element.value.length);
     
@@ -636,11 +654,20 @@ const Control     = {
         copy(id)                  {
             return function(e) {
                 const node = create.raw(e.target);
+                const pwd  = select(this.id);
+
+                if (pwd.hasClass('copied')) {
+                    return void Control.util.message('Only one copy allowed per generation. Reselect password.');
+                }
     
                 void node.text('Copied');
-                void navigator.clipboard.writeText(select(this).element.value);
-                void setTimeout(() => node.text('Copy'), 2500);
-            }.bind(id)
+                void navigator.clipboard.writeText(pwd.element.value);
+                void pwd.value();
+                void setTimeout(() => {
+                    void node.text('Copy');
+                    void pwd.reclass('copied');
+                }, 2500);
+            }.bind({id})
         },
         fullScreen()              {
             if (window.matchMedia('(display-mode: fullscreen)').matches) {  
@@ -731,7 +758,7 @@ const Control     = {
             }.bind(modal);
         },
         message(text)             {
-            return void root.add(
+            return void Root.add(
                 Components.message(text)
                     .style({right: '-75%'}, (Control.messageTime - 600))
                     .remove(Control.messageTime));
@@ -859,7 +886,7 @@ const Control     = {
             return void select(Names.scrolltop).show().hide(rect.top < 0);
         },
         theme()             {
-            void    create.raw(document.body).toggle('dark').toggle('light');
+            void    Body.toggle('dark').toggle('light');
             void    (!Control.isDark  && select('moon').hide() && select('sun').show());
             void    (Control.isDark && select('moon').show() && select('sun').hide());
             void    (Control.isDark = !Control.isDark);
@@ -869,7 +896,8 @@ const Control     = {
 };
 
 const Names            = new Proxy({}, {get: (_, prop) => prop});
-const root             = create.div;
+const Body             = create.raw(document.body);
+const Root             = create.div;
 const select           = Utils.select;
 const query            = Utils.query;
 
@@ -892,8 +920,8 @@ State.ledger           = {};
 State.locators         = {};
 State.focus            = {};
 
-void create.raw(document.body).add(root).names(Control.isDark ? 'dark' : 'light');
-void root.add(Modules.authorize(!Boolean(State.sessionData)));
+void Body.add(Root).names(Control.isDark ? 'dark' : 'light');
+void Root.add(Modules.authorize(!Boolean(State.sessionData)));
 void window.addEventListener('pointerdown', Control.util.fullScreen);
 
 if ('serviceWorker' in navigator) {
