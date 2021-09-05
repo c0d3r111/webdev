@@ -929,7 +929,7 @@ void Control.util.message(
     'Disable network connection when using this app for increased security. ' +
     'This app show never connect to external websites ' +
     'or transfer any data after initial page load.',
-    5e3
+    1e4
 );
 
 
