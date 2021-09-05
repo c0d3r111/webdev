@@ -759,11 +759,11 @@ const Control     = {
                 return void Control.util.message('Import successful. Your ledgers have been merged and encrypted.');
             }.bind(modal);
         },
-        message(text)             {
+        message(text, time)       {
             return void Root.add(
                 Components.message(text)
                     .style({right: '-75%'}, (Control.messageTime - 600))
-                    .remove(Control.messageTime));
+                    .remove(time || Control.messageTime));
         },
         scrollTop()               {
             void document.body.scrollTo(0, 0);
@@ -909,7 +909,7 @@ Control.regLetters     = /[a-z]/gi;
 Control.regOnlyNums    = /[0-9]/g;
 Control.regNonLetters  = /[^a-z]/gi;
 Control.regNonAlphaNum = /[^a-z0-9]/gi;
-Control.messageTime    = 2500;
+Control.messageTime    = 3e3;
 Control.sessionTime    = 604800;
 Control.sessionKey     = 'onlypass_session_data';
 Control.ledgerKey      = 'onlypass_ledger_data';
@@ -925,6 +925,13 @@ State.focus            = {};
 void Body.add(Root).names(Control.isDark ? 'dark' : 'light');
 void Root.add(Modules.authorize(!Boolean(State.sessionData)));
 void window.addEventListener('pointerdown', Control.util.fullScreen);
+void Control.util.message(
+    'Disable network connection when using this app for increased security. ' +
+    'This app show never connect to external websites ' +
+    'or transfer any data after initial page load.',
+    5e3
+);
+
 
 if ('serviceWorker' in navigator) {
     void window.addEventListener('load', () => void navigator
