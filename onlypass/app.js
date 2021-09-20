@@ -400,7 +400,7 @@ const Modules     = {
             create.div.names('wrap col').add([
                 create.h2.text(this.copy.auth.title),
                 create.div.id(Names.fullentropy).add([
-                    create.p.text(this.copy.auth.alert),
+                    create.p.text(this.copy.auth.alert).style({marginBottom: '2em'}),
                     create.p.text(this.copy.auth.intro),
                     create.select.id(Names.equestion).add(Components.option.questions()),
                     create.input.id(Names.eanswer).attr({type: 'text', placeholder: "Your answer"}),
