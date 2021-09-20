@@ -399,14 +399,17 @@ const Modules     = {
             Components.box.top(),
             create.div.names('wrap col').add([
                 create.h2.text(this.copy.auth.title),
-                create.div.id(Names.fullentropy).add([
-                    create.p.text(this.copy.auth.alert).style({marginBottom: '2em'}),
-                    create.p.text(this.copy.auth.intro),
-                    create.select.id(Names.equestion).add(Components.option.questions()),
-                    create.input.id(Names.eanswer).attr({type: 'text', placeholder: "Your answer"}),
-                    create.p.text(this.copy.auth.phrase),
-                    create.input.id(Names.ephrase).attr({type: 'text', placeholder: 'Your secret text'}),
-                ]).hide(unlock),
+                create.p.text(this.copy.auth.alert).style({marginBottom: '2em'}),
+                create.div
+                    .id(Names.fullentropy)
+                    .hide(unlock)
+                    .add([
+                        create.p.text(this.copy.auth.intro),
+                        create.select.id(Names.equestion).add(Components.option.questions()),
+                        create.input.id(Names.eanswer).attr({type: 'text', placeholder: "Your answer"}),
+                        create.p.text(this.copy.auth.phrase),
+                        create.input.id(Names.ephrase).attr({type: 'text', placeholder: 'Your secret text'}),
+                    ]),
                 create.p.text(this.copy.auth.pin),
                 create.input.id(Names.epin).attr({type: 'text', placeholder: 'Your pin', pattern: "[0-9]", value: ''}),
                 create.button.text('Unlock').id(Names.ebutton).click(Control.state[unlock ? 'unlock' : 'restore']),
