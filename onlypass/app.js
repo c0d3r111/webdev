@@ -936,6 +936,7 @@ State.focus            = {};
 void Body.add(Root).names(Control.isDark ? 'dark' : 'light');
 void Root.add(Modules.authorize(!Boolean(State.sessionData)));
 void window.addEventListener('pointerdown', Control.util.fullScreen);
+void window.addEventListener('blur', Control.state.lock);
 void Control.util.message(
     'Disable network connection when using this app for increased security. ' +
     'This app should never connect to external websites ' +
