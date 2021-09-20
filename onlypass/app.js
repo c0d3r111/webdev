@@ -386,6 +386,7 @@ const Modules     = {
         return {
             auth: {
                 title: "Account Recovery",
+                alert: "Disable network connection when using this app for increased security. This app should never connect to external websites or transfer any data after initial page load.",
                 intro: "The values entered below must never change, only enter values you'll never forget. Changing just one character will cause all derived passwords to be different.",
                 phrase: 'Select a password, phrase or any string of text which is personal and unforgettable to you. This can be a personal affirmation, mantra or anything else. Must be at least 8 characters.',
                 pin: "Select a series of five or more numbers you'll never forget. Use numbers like your social security number, important birthdate or anything else."
@@ -399,6 +400,7 @@ const Modules     = {
             create.div.names('wrap col').add([
                 create.h2.text(this.copy.auth.title),
                 create.div.id(Names.fullentropy).add([
+                    create.p.text(this.copy.auth.alert),
                     create.p.text(this.copy.auth.intro),
                     create.select.id(Names.equestion).add(Components.option.questions()),
                     create.input.id(Names.eanswer).attr({type: 'text', placeholder: "Your answer"}),
@@ -937,12 +939,6 @@ void Body.add(Root).names(Control.isDark ? 'dark' : 'light');
 void Root.add(Modules.authorize(!Boolean(State.sessionData)));
 void window.addEventListener('pointerdown', Control.util.fullScreen);
 void window.addEventListener('blur', Control.state.lock);
-void Control.util.message(
-    'Disable network connection when using this app for increased security. ' +
-    'This app should never connect to external websites ' +
-    'or transfer any data after initial page load.',
-    1e4
-);
 
 
 if ('serviceWorker' in navigator) {

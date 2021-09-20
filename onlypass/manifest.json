@@ -16,7 +16,7 @@
         },
         {
             "src": "/onlypass/maskable_icon.png",
-            "sizes": "512x512",
+            "sizes": "930x930",
             "type": "image/png",
             "purpose": "maskable"
         }
