@@ -189,8 +189,21 @@ const Utils       = {
         return sum;
     },
     getPrint()                {
+        const txt    = (() => {
+            const nav  = window.navigator || {};
+            const view = window.screen    || {};
+
+            return (
+                '!@#$%^&*()AabBcdDeEfgGhHiIjJklLmMnNopqQrstuvwWxyz' +
+                (view.availWidth         || 1)  +
+                (view.availHeight        || 1)  +
+                (nav.userAgent           || '') +
+                (nav.deviceMemory        || 0)  +
+                (nav.hardwareConcurrency || 0)  +
+                (nav.maxTouchPoints      || 0)
+            );
+        })();
         const canvas = document.createElement('canvas');
-        const txt    = '!@#$%^&*()AabBcdDeEfgGhHiIjJklLmMnNopqQrstuvwWxyz';
         const ctx    = canvas.getContext("2d");
 
         ctx.textBaseline = "top";
@@ -231,11 +244,9 @@ const Utils       = {
         return create.raw(document.getElementById(Composer.store[name])) || create.div;
     },
 
-    
     get uid()                 {
         return String.fromCharCode(Math.floor(Math.random() * 26) + 97)
-            + Math.random().toString(16).slice(2)
-            + String.fromCharCode(Math.floor(Math.random() * 26) + 97);
+            + Math.random().toString(16).slice(5);
     },
 };
 
