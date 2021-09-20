@@ -303,8 +303,8 @@ const Components  = {
             const rid     = Utils.uid;
             const handler = isImport ? Control.util.import(rid) : Control.util.copy(Names.portfield);
             const text    = [
-                'Export your encrypted ledger data. No derived passwords are ever saved, only custom passwords get saved in your encrypted ledger.',
-                'Import ledger from a previous session. Ledger must match your current session data.'
+                'Export your encrypted ledger data. No derived passwords are ever saved, only custom passwords get saved to your encrypted ledger.',
+                'Import ledger from another session. Ledger must match your current session data.'
             ];
             
             return Root.add(create.div.id(rid).names('overlay').add([
@@ -436,7 +436,7 @@ const Modules     = {
             Components.box.top(),
             create.div.names('wrap col').add([
                 create.input
-                    .attr({type: 'search', placeholder: 'Search websites'})
+                    .attr({type: 'search', placeholder: 'Search passwords'})
                     .id(Names.search)
                     .on('focus', Control.util.hideOptions)
                     .on('input', Control.search.init),
