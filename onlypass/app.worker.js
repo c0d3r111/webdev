@@ -1,5 +1,4 @@
-const version   = 2.0;
-const cacheName = 'onlypass_cache';
+const cacheName = 'onlypass_cache_v3';
 const cacheUrls = [
     "/onlypass/",
     "/onlypass/index.html",
