@@ -579,10 +579,14 @@ const Control     = {
             return;
         },
         lock()    {
-            return void window.location.reload();
+            void Root.clear();
+            void window.location.reload();
+
+            return
         },
         logout()  {
             void Control.state.clear();
+            void Root.clear();
             void window.location.reload();
     
             return;
