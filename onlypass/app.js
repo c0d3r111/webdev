@@ -879,11 +879,11 @@ const Control     = {
         modal: {
             password(id)   {
                 return function() {
-                    void (State.focus.hash = State.locators[this]);
+                    void (State.focus.hash = State.locators[this.id]);
                     void Control.util.hideOptions();
                     void Components.modal.password();
                     void Control.password.generate();
-                }.bind(id)
+                }.bind({id})
             },
             port(isImport) {
                 return function() {
@@ -899,8 +899,8 @@ const Control     = {
 
         option(name)        {
             return function() {
-                void select(this).toggle('hide');
-            }.bind(name);
+                void select(this.name).toggle('hide');
+            }.bind({name});
         }, 
         scroll()            {
             const rect = select(Names.pwdholder).element.getBoundingClientRect();
