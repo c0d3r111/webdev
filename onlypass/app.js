@@ -727,13 +727,15 @@
                 }
         
                 void Object.assign(State.ledger, ledgerData);
-                void Object.keys(State.ledger).sort((a, b) => State.ledger[a].n > State.ledger[b].n).forEach(hash => {
-                    const focus = State.ledger[hash];
-                    const eid   = Utils.uid;
-        
-                    void (State.locators[eid] = hash);
-                    void select(Names.pwdholder).insert(Components.box.password(focus.n, eid).id(eid));
-                });
+                void Object.keys(State.ledger)
+                    .sort((a, b) => State.ledger[a].n.charCodeAt() > State.ledger[b].n.charCodeAt())
+                    .forEach(hash => {
+                        const focus = State.ledger[hash];
+                        const eid   = Utils.uid;
+            
+                        void (State.locators[eid] = hash);
+                        void select(Names.pwdholder).insert(Components.box.password(focus.n, eid).id(eid));
+                    });
         
                 return;
             },
