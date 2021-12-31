@@ -727,7 +727,7 @@
                 }
         
                 void Object.assign(State.ledger, ledgerData);
-                void Object.keys(State.ledger).sort((a, b) => a.n > b.n).forEach(hash => {
+                void Object.keys(State.ledger).sort((a, b) => State.ledger[a].n > State.ledger[b].n).forEach(hash => {
                     const focus = State.ledger[hash];
                     const eid   = Utils.uid;
         
