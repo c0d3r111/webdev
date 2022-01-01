@@ -778,7 +778,7 @@
                 }.bind(modal);
             },
             lockscreen()              {
-                State._timer = setTimeout(Control.util.lock, 3e4);
+                State._timer = setTimeout(Control.state.lock, 3e4);
 
                 return;
             },
